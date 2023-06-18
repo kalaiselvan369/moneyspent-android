@@ -1,4 +1,4 @@
-# moneyspent-android
+# moneyspent-android :Work In Progres:
 
 
 MoneySpent-Lite is a completely offline app that helps you to manage your expenses for each month. You can customise the expense category as per your need.
