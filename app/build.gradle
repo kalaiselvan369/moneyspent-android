@@ -1,0 +1,107 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+    namespace 'com.glidotalks.moneyspent'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.glidotalks.moneyspent"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.4'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    // initially added for dagger hilt to allow references to generated code
+    kapt {
+        correctErrorTypes true
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    // compose
+    def composeBom = platform('androidx.compose:compose-bom:2023.01.00')
+    implementation composeBom
+    androidTestImplementation composeBom
+    // compose material 3
+    implementation 'androidx.compose.material3:material3'
+    // compose android studio preview support
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    // compose UI Tests
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    // Add full set of material icons which are not available in androidx.compose.material
+    implementation 'androidx.compose.material:material-icons-extended'
+    // integrate navigation with compose
+    implementation 'androidx.navigation:navigation-compose:2.5.3'
+    // integrate hilt navigation with compose
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    // integrate activities with compose
+    implementation 'androidx.activity:activity-compose:1.7.0'
+    // integrate view model with compose
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+    // splash screen
+    implementation 'androidx.core:core-splashscreen:1.0.0'
+    // to collect flow as state with lifecycle aware way
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.1"
+    // for viewmodel coroutine scope
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    // third party dependencies - for UI related DI
+    implementation 'com.google.dagger:hilt-android:2.45'
+    kapt 'com.google.dagger:hilt-compiler:2.45'
+
+    // unit and instrumentation test
+    testImplementation 'junit:junit:4.13.2'
+    // for coroutines test dispatcher
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    // for instant task executor - live data
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    // mockito
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:4.1.0'
+    // mock kotlin final class
+    testImplementation 'org.mockito:mockito-inline:4.2.0'
+    // mock webserver
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
+    // assertions
+    testImplementation 'com.google.truth:truth:1.1.3'
+    // android test
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
